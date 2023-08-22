@@ -1,7 +1,11 @@
 //React Component
+import { useState } from "react";
 import Title from "./Title";
 
 const Header = () => {
+
+  const [title,setTitle] =  useState("Food villa");
+
   return (
     <div className="header">
       <Title />
