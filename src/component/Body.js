@@ -37,8 +37,8 @@ const Body = () => {
   // not render component(Early return)
   if(!allRestaurants)return null;
 
-  if(filteredRestaurants?.length == 0)return <h1>No Restaurant found!</h1>;
-  
+  //if(filteredRestaurants?.length == 0)return <h1>No Restaurant found!</h1>;
+
 
   // Condiitional Rendering...
 
