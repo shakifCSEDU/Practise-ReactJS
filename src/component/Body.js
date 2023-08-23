@@ -10,7 +10,7 @@ function filterData(searchText, restaurants) {
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
-  const [restaurants, setRestaurants] = useState([]);
+  const [allRestaurants, setAllRestaurants] = useState([]);
 
   // empty dependency array => once after render
   useEffect(() => {
@@ -19,12 +19,13 @@ const Body = () => {
   }, []);
 
   async function getRestaurants() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.29844139999999&lng=77.99313599999999&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch("https://api.spoonacular.com/recipes/complexSearch?apiKey=08e11627ade946c18fc38b1918578d2f");
     const json = await data.json();
-    setRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    
+    setAllRestaurants(json.results);
+    console.log(json.results);
   }
+  
 
   return (
     <>
@@ -41,17 +42,18 @@ const Body = () => {
           onClick={(e) => {
             // need to filter-out this data
             //update the state-restaurants
-
-            const data = filterData(searchText, restaurants);
-            setRestaurants(data);
+            const data = filterData(searchText, allRestaurants);
+            setAllRestaurants(data);
           }}
         >
           Search
         </button>
       </div>
       <div className="restaurant-list">
-      {restaurants?.map((restaurant) => (
-          <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
+      
+      {
+      allRestaurants?.map((restaurant) => (
+          <RestaurantCard {...restaurant} key={restaurant.id} />
         ))}
       </div>
     </>
