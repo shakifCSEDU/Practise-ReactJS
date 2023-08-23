@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { restaurantList } from "./constants";
+import Shimmer from "./Shimmer";
 
 function filterData(searchText, restaurants) {
-  return restaurants.filter((restaurant) =>
-    restaurant.data.name.includes(searchText)
+  return restaurants?.filter((restaurant) =>
+    restaurant?.title?.toLowerCase()?.includes(searchText.toLowerCase())
   );
 }
 
 const Body = () => {
+
+
   const [searchText, setSearchText] = useState("");
   const [allRestaurants, setAllRestaurants] = useState([]);
+  const [filteredRestaurants,setFilteredRestaurants] = useState([]);
+
+
 
   // empty dependency array => once after render
   useEffect(() => {
@@ -19,15 +25,26 @@ const Body = () => {
   }, []);
 
   async function getRestaurants() {
-    const data = await fetch("https://api.spoonacular.com/recipes/complexSearch?apiKey=08e11627ade946c18fc38b1918578d2f");
+    const data = await fetch(
+      "https://api.spoonacular.com/recipes/complexSearch?apiKey=08e11627ade946c18fc38b1918578d2f"
+    );
     const json = await data.json();
-    
-    setAllRestaurants(json.results);
-    console.log(json.results);
+
+    setAllRestaurants(json?.results);
+    setFilteredRestaurants(json?.results);
   }
+
+  // not render component(Early return)
+  if(!allRestaurants)return null;
+
+  if(filteredRestaurants?.length == 0)return <h1>No Restaurant found!</h1>;
   
 
-  return (
+  // Condiitional Rendering...
+
+  return allRestaurants?.length === 0 ? (
+    <Shimmer />
+  ) : (
     <>
       <div className="search-container">
         <input
@@ -43,16 +60,14 @@ const Body = () => {
             // need to filter-out this data
             //update the state-restaurants
             const data = filterData(searchText, allRestaurants);
-            setAllRestaurants(data);
+            setFilteredRestaurants(data);
           }}
         >
           Search
         </button>
       </div>
       <div className="restaurant-list">
-      
-      {
-      allRestaurants?.map((restaurant) => (
+        {filteredRestaurants?.map((restaurant) => (
           <RestaurantCard {...restaurant} key={restaurant.id} />
         ))}
       </div>
