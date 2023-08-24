@@ -1,4 +1,4 @@
-const contact = ()=>{
+const Contact = ()=>{
   return <h1>Contact Us !!</h1>;
 }
-export default contact;
+export default Contact;
