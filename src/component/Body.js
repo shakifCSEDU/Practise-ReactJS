@@ -31,7 +31,7 @@ const Body = () => {
 
   async function getRestaurants() {
     const data = await fetch(
-      "https://api.spoonacular.com/recipes/complexSearch?apiKey=08e11627ade946c18fc38b1918578d2f"
+      "https://api.spoonacular.com/recipes/complexSearch?apiKey=59f95182aff04356b2f1a3bc6edc9ebb"
     );
     const json = await data.json();
 
