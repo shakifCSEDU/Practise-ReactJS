@@ -4,15 +4,9 @@ import { restaurantList } from "./constants";
 import Shimmer from "./Shimmer";
 import RestaurantMenu from "./RestaurantMenu";
 import { Link } from "react-router-dom";
+import { filterData } from "../../utils/helper";
+import useOnline from "../../utils/useOnline";
 
-
-
-
-function filterData(searchText, restaurants) {
-  return restaurants?.filter((restaurant) =>
-    restaurant?.title?.toLowerCase()?.includes(searchText.toLowerCase())
-  );
-}
 
 const Body = () => {
 
@@ -38,6 +32,13 @@ const Body = () => {
     setAllRestaurants(json?.results);
     setFilteredRestaurants(json?.results);
   }
+
+  const isOnline = useOnline();
+
+  if(!isOnline){
+    return (<h1>🔴Offline,Please check your internet connection!! </h1>);
+  }
+
 
   // not render component(Early return)
   if(!allRestaurants)return null;
