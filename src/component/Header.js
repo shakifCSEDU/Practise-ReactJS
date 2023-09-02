@@ -12,25 +12,25 @@ const Header = () => {
   const isOnline =  useOnline();
 
   return (
-    <div className="header">
+    <div className="flex justify-between  bg-pink-50 shadow-lg sm:bg-blue-50">
       <Title />
       <div className="nav-items">
-        <ul>
+        <ul className="flex">
           <Link to="/">
-            <li>Home</li>
+            <li className="px-2">Home</li>
           </Link>
 
           <Link to="/about">
-            <li>About</li>
+            <li className="px-2">About</li>
           </Link>
 
           <Link to="/contact">
-            <li>Contact</li>
+            <li className="px-2">Contact</li>
           </Link>
 
           <li>Cart</li>
           <Link to="/instamart">
-            <li>Instamart</li>
+            <li className="px-2">Instamart</li>
           </Link>
         
         

@@ -6,9 +6,9 @@ const RestaurantCard = ({
   image
 }) => {
   return (
-    <div className="card">
+    <div className="w-56 p-2 m-2 shadow-lg bg-pink-50">
       <img src={image} />
-      <h2>{title}</h2>
+      <h2 className="font-bold 2xl">{title}</h2>
     </div>
   );
 };

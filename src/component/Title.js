@@ -4,7 +4,7 @@ const Title = () => {
   return (
     <a href="/">
       <img
-        className="logo"
+        className="h-28 p-2"
         alt="log"
         src={Logo}
      />
